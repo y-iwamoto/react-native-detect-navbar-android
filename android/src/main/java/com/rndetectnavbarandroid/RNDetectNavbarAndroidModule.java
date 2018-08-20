@@ -50,29 +50,27 @@ public class RNDetectNavbarAndroidModule extends ReactContextBaseJavaModule {
   @SuppressLint ("NewApi")
   private boolean hasImmersive() {
 
-      if (!cached) {
-          if(Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-              hasImmersive = false;
-              cached = true;
-              return false;
-          }
-          Display d = ((WindowManager) reactContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-
-          DisplayMetrics realDisplayMetrics = new DisplayMetrics();
-          d.getRealMetrics(realDisplayMetrics);
-
-          int realHeight = realDisplayMetrics.heightPixels;
-          int realWidth = realDisplayMetrics.widthPixels;
-
-          DisplayMetrics displayMetrics = new DisplayMetrics();
-          d.getMetrics(displayMetrics);
-
-          int displayHeight = displayMetrics.heightPixels;
-          int displayWidth = displayMetrics.widthPixels;
-
-          hasImmersive = (realWidth > displayWidth) || (realHeight > displayHeight);
+      if(Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+          hasImmersive = false;
           cached = true;
+          return false;
       }
+      Display d = ((WindowManager) reactContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+
+      DisplayMetrics realDisplayMetrics = new DisplayMetrics();
+      d.getRealMetrics(realDisplayMetrics);
+
+      int realHeight = realDisplayMetrics.heightPixels;
+      int realWidth = realDisplayMetrics.widthPixels;
+
+      DisplayMetrics displayMetrics = new DisplayMetrics();
+      d.getMetrics(displayMetrics);
+
+      int displayHeight = displayMetrics.heightPixels;
+      int displayWidth = displayMetrics.widthPixels;
+
+      hasImmersive = (realWidth > displayWidth) || (realHeight > displayHeight);
+      cached = true;
 
       return hasImmersive;
   }
