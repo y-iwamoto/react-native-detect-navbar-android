@@ -12,7 +12,7 @@ const DetectNavbar = Platform.OS === 'android' ? {
     return RNDetectNavbarAndroid.hasSoftKeys();
   }
 } : {
-  hasSoftKeys: unSupportedError
+  hasSoftKeys: promise.resolve(false)
 };
 
 export {DetectNavbar};
